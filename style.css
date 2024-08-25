@@ -23,7 +23,7 @@ h1{
     height: 200px; /* ou qualquer valor específico */
     
 }
-a.botao_contato{
+.botao_contato{
     padding: 15px;
     border-radius: 10px;
     background: greenyellow;
@@ -34,6 +34,3 @@ a.botao_contato{
     
 }
 
-#id{
-    text-align: center;
-}
