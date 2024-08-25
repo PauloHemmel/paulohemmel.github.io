@@ -1,3 +1,6 @@
+body{
+    background: black;
+}
 
 h1{
     color: khaki;
@@ -11,4 +14,13 @@ h1{
     color: aqua;
     text-align: center;
 
+}
+.script{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; /* ou qualquer valor específico */
+    height: 200px; /* ou qualquer valor específico */
+    
 }
