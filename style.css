@@ -8,7 +8,6 @@ h1{
 }
 
 #header{
-    padding: 50;
     background: rgb(0, 0, 0);
     height: 100px;
     color: aqua;
@@ -23,4 +22,18 @@ h1{
     width: 300px; /* ou qualquer valor específico */
     height: 200px; /* ou qualquer valor específico */
     
+}
+a.botao_contato{
+    padding: 15px;
+    border-radius: 10px;
+    background: greenyellow;
+    text-decoration: none;
+    text-align: center;
+    width: 200px;
+
+    
+}
+
+#id{
+    text-align: center;
 }
