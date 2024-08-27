@@ -1,32 +1,153 @@
-h1{
-    color: khaki;
-    text-align: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#header{
-    background: rgb(0, 0, 0);
-    height: 100px;
-    color: aqua;
-    text-align: center;
-
+body {
+    font-family: tahoma;
+    width: 100%;
+    overflow-x: hidden;
 }
-.script{
+
+.row {
+    max-width: 100%;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.hero {
     position: absolute;
+    width: 90%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px; /* ou qualquer valor específico */
-    height: 200px; /* ou qualquer valor específico */
-    
-}
-.botao_contato{
-    padding: 15px;
-    border-radius: 10px;
-    background: greenyellow;
-    text-decoration: none;
     text-align: center;
-    width: 200px;
-
-    
 }
 
+header {
+    /* background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(https://images.pexels.com/photos/248444/pexels-photo-248444.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260); */
+    height: 100vh;
+    background: rgb(230, 102, 23);
+    background-position: center;
+    background-size: cover;
+    background-image: image(s);
+}
+
+h1 {
+    color: white;
+    font-size: 8vw; /* Responsivo em relação à largura da tela */
+    font-family: 'Kaushan Script', cursive;
+    letter-spacing: 1.7px;
+    font-weight: 100px;
+    margin: 0;
+}
+
+.main-nav {
+    list-style: none;
+    float: none;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.main-nav li {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.main-nav li a {
+    color: white;
+    text-decoration: none;
+    font-size: 90%;
+    font-weight: bold;
+}
+
+.main-nav li a:hover {
+    color: #e67e22;
+    border-bottom: 2px solid #e67e22;
+    transition: all 0.5s ease-in;
+    padding: 15px 0;
+}
+.logo{
+    position: absolute;
+    width: 90%;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.logo img {
+    padding: 1%;
+    height: 200px;
+    margin-top: 3px;
+    display: block;
+    margin:  auto;
+   
+
+}
+
+.btn {
+    border: 3px solid #ffffff;
+    padding: 20px 40px;
+    background: #ffffff9a;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 12px;
+    margin-right: 25px;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.button-awesome {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.btn-half:hover,
+.btn-full:hover {
+    background-color: #e67e22;
+    color: white;
+    transition: all 0.5s ease-in;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    .hero {
+        width: 100%;
+    }
+
+    .main-nav {
+        float: none;
+        text-align: center;
+        margin-right: 0;
+    }
+
+    .main-nav li {
+        margin-left: 20px;
+    }
+
+    .logo img {
+        height: 200px;
+    }
+
+    .btn {
+        padding: 8px 20px;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 10vw;
+    }
+
+    .main-nav li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .logo img {
+        height: 200px;
+    }
+}
