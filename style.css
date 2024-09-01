@@ -48,7 +48,7 @@ body{
     position: absolute; */
     border: 3px solid #ffffff;
     padding: 1px 1px 1px;
-    background: #ffffff9a;
+    background: #ffffff00;
     color: #fff;
     text-decoration: none;
     border-radius: 12px;
@@ -63,7 +63,8 @@ body{
     height: auto;
     font-family: "Medula One", system-ui;
     font-weight: 400;
-    font-style: normal
+    font-style: normal;
+    font-size: 29px;
 }
 
 .janta{
@@ -79,7 +80,7 @@ body{
     position: absolute; */
     border: 3px solid #ffffff;
     padding: 1px 1px 1px;
-    background: #ffffff9a;
+    background: #ffffff00;
     color: #fff;
     text-decoration: none;
     border-radius: 12px;
@@ -94,7 +95,8 @@ body{
     height: auto;
     font-family: "Medula One", system-ui;
     font-weight: 400;
-    font-style: normal
+    font-style: normal;
+    font-size: 29px;
 }
 
 h1{
