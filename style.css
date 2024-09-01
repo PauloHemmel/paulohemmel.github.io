@@ -17,9 +17,7 @@ body{
     background-position: center;
     left: 50%;
     position:absolute;
-    transform: translate(-50%, -50%);
-
-    
+    transform: translate(-50%, -50%);    
 }
 .logo{
     background-image: url(/img/logo.svg);
@@ -60,6 +58,9 @@ body{
     transform: translate(-50%, -50%);
     width: 340px;
     height: auto;
+    font-family: "Nerko One", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
 
 h1{
