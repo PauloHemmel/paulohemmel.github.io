@@ -10,6 +10,7 @@ body{
 
 }
 
+
 .atendimento{
     width: 300px;
     height: 300px;
@@ -35,10 +36,67 @@ body{
     transform: translate(-50%, -50%);
  }
 
+  
+.sushi1{
+    background-image: url(/img/sushi.webp);
+    width: 200px;
+    height: 200px;
+    background-position: center;
+    background-size: 130px;
+    background-repeat: no-repeat;
+    top:  396px;
+    left: 18%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    
+ }
+
+ .sushi2{
+    background-image: url(/img/sushi2.webp);
+    width: 200px;
+    height: 200px;
+    background-position: center;
+    background-size: 130px;
+    background-repeat: no-repeat;
+    top:  190px;
+    left: 70%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    
+ }
+
+ .sushi4{
+    background-image: url(/img/sushi4.webp);
+    width: 200px;
+    height: 200px;
+    background-position: center;
+    background-size: 130px;
+    background-repeat: no-repeat;
+    top:  40px;
+    left: 20%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    
+ }
+
+ .sushi5{
+    background-image: url(/img/palito.webp);
+    width: 500px;
+    height: 500px;
+    background-position: center;
+    background-size: 450px;
+    background-repeat: no-repeat;
+    top:  600px;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    
+ }
+
 .almoco{
     border: 3px solid #ffffff;
     padding: 1px 1px 1px;
-    background: #ffffff00;
+
     color: #fff;
     text-decoration: none;
     border-radius: 12px;
@@ -55,12 +113,13 @@ body{
     font-weight: 400;
     font-style: normal;
     font-size: 29px;
+    background: rgb(216, 22, 22); 
 }
 
 .janta{
     border: 3px solid #ffffff;
     padding: 1px 1px 1px;
-    background: #ffffff00;
+    background: rgb(216, 22, 22); 
     color: #fff;
     text-decoration: none;
     border-radius: 12px;
