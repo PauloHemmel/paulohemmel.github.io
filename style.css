@@ -86,10 +86,10 @@ body{
     background-position: center;
     background-size: 450px;
     background-repeat: no-repeat;
-    top:  600px;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
+    top:  10px;
+    left: 10px;
+    position:absolute;
+ 
     
  }
 
