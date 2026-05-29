@@ -1,45 +1,327 @@
-<html>
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
-   <title>Sushi</title> 
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
-  
-  <link href="style.css" rel="stylesheet" type="text/css">
-  
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="HandheldFriendly" content="true">
-    
-    </head>
-<body>
-    <!-- <div class="fundo" style="border: 1px solid white;">
-        <img width="400px" height="800" src="/img/fundojapa.svg" alt="">
-    </div> -->
-    <div class="logo"></div>
-   
-    <div class="atendimento"></div>
-    <div class="sushi5"></div>
-    <!-- <div class="sushi4"></div>
-    
-    <div class="sushi2"></div> -->
-    <div class="almoco" style="border: 1px solid white; border-radius: 20px;">ALMOÇO: QUA E SEX DAS 10:40MS ÀS 12:40MS</div>
-    <!-- <div class="sushi1"></div> -->
-    <div class="janta" style="border: 1px solid white; border-radius: 20px;">JANTA: SEG À SAB DAS 17:30MS ÀS 21:30MS</div>
-    <div class="clique" style="border: 1px solid white; border-radius: 20px;">
-      <a href="https://dominusushi.lojadepedidos.com/"><h1>CLIQUE AQUI</h1>
-      <div class="seta"></div></a>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .poster {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(170deg, #e8f5e9 0%, #e3f2fd 40%, #f0f9ff 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a5e20 0%, #1565c0 100%);
+    padding: 20px 24px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .header-logo {
+    background: white;
+    border-radius: 10px;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .logo-ifms {
+    font-size: 18px;
+    font-weight: 900;
+    color: #1565c0;
+    line-height: 1;
+  }
+  .logo-year {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1a5e20;
+    line-height: 1;
+  }
+  .header-text { flex: 1; }
+  .header-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 2px;
+  }
+  .header-main {
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+  }
+  .header-main span { color: #a5d6a7; }
+  .header-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .day-badge {
+    background: #FFC107;
+    color: #1a1a1a;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+  .icons-row {
+    display: flex;
+    gap: 4px;
+    padding: 10px 24px 0;
+    background: linear-gradient(135deg, #1a5e20 0%, #1565c0 100%);
+  }
+  .icon-box {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 16px 24px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 3px; height: 14px;
+    border-radius: 2px;
+  }
+  .matutino .section-label { color: #e65100; }
+  .matutino .section-label::before { background: #e65100; }
+  .vespertino .section-label { color: #1565c0; }
+  .vespertino .section-label::before { background: #1565c0; }
+
+  .cards { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+  .card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 14px;
+    border: 0.5px solid rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+  }
+  .card.minicurso::before { background: #388e3c; }
+  .card.oficina::before { background: #1976d2; }
+
+  .card-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  .card.minicurso .card-icon { background: #e8f5e9; }
+  .card.oficina .card-icon { background: #e3f2fd; }
+
+  .card-body { flex: 1; min-width: 0; }
+  .card-type {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .minicurso .card-type { background: #e8f5e9; color: #2e7d32; }
+  .oficina .card-type { background: #e3f2fd; color: #1565c0; }
+
+  .card-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    color: #555;
+  }
+  .meta-icon {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    background: #f5f5f5;
+    flex-shrink: 0;
+  }
+  .time-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #fff8e1;
+    color: #e65100;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid #ffe082;
+    margin-left: auto;
+    align-self: flex-start;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .footer {
+    margin: 16px 16px 16px;
+    background: linear-gradient(135deg, #1a5e20 0%, #1565c0 100%);
+    border-radius: 12px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-text { color: white; font-size: 12px; }
+  .footer-text strong { font-size: 14px; display: block; }
+  .footer-icons { display: flex; gap: 6px; }
+  .footer-icon {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+  }
+</style>
+
+<div class="poster">
+  <div class="header">
+    <div class="header-logo">
+      <span class="logo-ifms">IFMS</span>
+      <span class="logo-year">2026</span>
+    </div>
+    <div class="header-text">
+      <div class="header-title">Semana do Meio Ambiente</div>
+      <div class="header-main">Programação <span>Dia 1</span></div>
+      <div class="header-sub">
+        <span>📍 Coxim – MS</span>
+        <span class="day-badge">01 de junho</span>
+      </div>
+    </div>
+  </div>
+  <div class="icons-row">
+    <div class="icon-box" style="background:#1565c0">🐟</div>
+    <div class="icon-box" style="background:#2e7d32">🌳</div>
+    <div class="icon-box" style="background:#4caf50">🌧️</div>
+    <div class="icon-box" style="background:#66bb6a">♻️</div>
+    <div class="icon-box" style="background:#fdd835">💡</div>
+    <div class="icon-box" style="background:#fb8c00">💧</div>
+    <div class="icon-box" style="background:#e53935">⚡</div>
+  </div>
+
+  <div class="matutino">
+    <div class="section-label">☀️ &nbsp;Matutino</div>
+    <div class="cards">
+
+      <div class="card oficina">
+        <div class="card-icon">🏢</div>
+        <div class="card-body">
+          <span class="card-type">Oficina</span>
+          <div class="card-title">Sebrae – LAB.IC<br>Oficina de Ideias</div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-icon">👤</div>
+              Hugo Siscar
+            </div>
+            <div class="meta-item">
+              <div class="meta-icon">📍</div>
+              Biblioteca
+            </div>
+          </div>
+        </div>
+        <div class="time-badge">🕗 08:00</div>
+      </div>
+
+      <div class="card minicurso">
+        <div class="card-icon">🐝</div>
+        <div class="card-body">
+          <span class="card-type">Minicurso</span>
+          <div class="card-title">A vida invisível da polinização: conhecendo as abelhas e sua importância na produção de alimentos</div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-icon">👤</div>
+              Ellen Rubia
+            </div>
+            <div class="meta-item">
+              <div class="meta-icon">📍</div>
+              Sala de aula
+            </div>
+          </div>
+        </div>
+        <div class="time-badge">🕙 10:10</div>
+      </div>
 
     </div>
+  </div>
 
-    
-   
+  <div class="vespertino">
+    <div class="section-label">🌤️ &nbsp;Vespertino</div>
+    <div class="cards">
 
-    
-    
-</body>
+      <div class="card oficina">
+        <div class="card-icon">🏢</div>
+        <div class="card-body">
+          <span class="card-type">Oficina</span>
+          <div class="card-title">Sebrae – LAB.IC<br>Oficina de Ideias</div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-icon">👤</div>
+              Hugo Siscar
+            </div>
+            <div class="meta-item">
+              <div class="meta-icon">📍</div>
+              Biblioteca
+            </div>
+          </div>
+        </div>
+        <div class="time-badge">🕐 13:00</div>
+      </div>
 
-</html>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">
+      <strong>Semana do Meio Ambiente</strong>
+      01 a 03 de junho · Coxim – MS
+    </div>
+    <div class="footer-icons">
+      <div class="footer-icon">🌱</div>
+      <div class="footer-icon">♻️</div>
+      <div class="footer-icon">💧</div>
+    </div>
+  </div>
+</div>
