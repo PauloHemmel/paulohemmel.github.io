@@ -1,852 +1,1720 @@
-cat > /mnt/user-data/outputs/semana_meio_ambiente_xibo_vertical.html << 'HTMLEOF'
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=1080, initial-scale=1.0">
-<title>Semana do Meio Ambiente – IFMS 2026</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    width: 1080px;
-    height: 1740px;
-    overflow: hidden;
-    font-family: 'Inter', sans-serif;
-    background: #0a2a10;
-  }
-  .screen {
-    width: 1080px;
-    height: 1740px;
-    position: absolute;
-    top: 0; left: 0;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(160deg, #e8f5e9 0%, #e3f2fd 55%, #f0f9ff 100%);
-  }
-  .screen.active { opacity: 1; }
+cat > /mnt/user-data/outputs/semana_meio_ambiente_xibo_vertical.html << 'HTMLEOF' <!DOCTYPE html>
+  <html lang="pt-BR">
 
-  /* HEADER */
-  .hdr {
-    background: linear-gradient(135deg, #1a5e20 0%, #1565c0 100%);
-    padding: 36px 48px 28px;
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    flex-shrink: 0;
-  }
-  .hdr-logo {
-    background: white;
-    border-radius: 18px;
-    padding: 12px 22px;
-    display: flex; flex-direction: column; align-items: center;
-    flex-shrink: 0;
-  }
-  .hdr-logo .ifms { font-size: 54px; font-weight: 900; color: #1565c0; line-height: 1; }
-  .hdr-logo .yr { font-size: 19px; font-weight: 700; color: #1a5e20; line-height: 1.3; }
-  .hdr-text { flex: 1; }
-  .hdr-top { font-size: 38px; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
-  .hdr-main { font-size: 52px; font-weight: 900; color: white; line-height: 1.05; }
-  .hdr-main span { color: #a5d6a7; }
-  .hdr-sub { font-size: 22px; color: rgba(255,255,255,0.75); margin-top: 6px; }
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, initial-scale=1.0">
+    <title>Semana do Meio Ambiente – IFMS 2026</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
 
-  /* DAY + PAGE */
-  .day-block { text-align: right; flex-shrink: 0; }
-  .day-pill {
-    background: #FFC107;
-    color: #1a1a1a;
-    font-size: 50px; font-weight: 800;
-    padding: 8px 24px; border-radius: 40px;
-    display: inline-block; margin-bottom: 8px;
-  }
-  .page-ind { color: rgba(255,255,255,0.6); font-size: 27px; font-weight: 600; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-  /* ICON STRIP */
-  .icons-strip {
-    background: linear-gradient(135deg, #1a5e20 0%, #1565c0 100%);
-    padding: 0 78px 20px;
-    display: flex; gap: 12px;
-    flex-shrink: 0;
-  }
-  .ibox {
-    width: 48px; height: 48px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 26px;
-  }
+      html,
+      body {
+        width: 1080px;
+        height: 1740px;
+        overflow: hidden;
+        font-family: 'Inter', sans-serif;
+        background: #0a2a10;
+      }
 
-  /* TURNO LABEL */
-  .turno-lbl {
-    font-size: 52px; font-weight: 900;
-    text-transform: uppercase; letter-spacing: 3px;
-    padding: 22px 48px 10px;
-    display: flex; align-items: center; gap: 12px;
-    flex-shrink: 0;
-  }
-  .turno-lbl::before {
-    content: ''; display: block;
-    width: 7px; height: 26px; border-radius: 4px;
-  }
-  .mat .turno-lbl { color: #bf360c; }
-  .mat .turno-lbl::before { background: #bf360c; }
-  .vesp .turno-lbl { color: #1565c0; }
-  .vesp .turno-lbl::before { background: #1565c0; }
-  .not .turno-lbl { color: #4a148c; }
-  .not .turno-lbl::before { background: #4a148c; }
-  .enc .turno-lbl { color: #1a5e20; }
-  .enc .turno-lbl::before { background: #1a5e20; }
+      .screen {
+        width: 1080px;
+        height: 1740px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.8s ease;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(160deg, #e8f5e9 0%, #e3f2fd 55%, #f0f9ff 100%);
+      }
 
-  /* CARDS */
-  .cards-area {
-    flex: 1;
-    padding: 0 32px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    overflow: hidden;
-  }
-  .card {
-    background: white;
-    border-radius: 22px;
-    padding: 22px 26px;
-    display: flex;
-    gap: 18px;
-    border: 1px solid rgba(0,0,0,0.07);
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 14px;
-  }
-  .card::before {
-    content: '';
-    position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
-  }
-  .card.minicurso::before { background: #388e3c; }
-  .card.oficina::before   { background: #1976d2; }
-  .card.palestra::before  { background: #7b1fa2; }
-  .card.exposicao::before { background: #e65100; }
-  .card.encerramento::before { background: #1a5e20; }
+      .screen.active {
+        opacity: 1;
+      }
 
-  .card-ico {
-    width: 72px; height: 72px; border-radius: 18px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 38px; flex-shrink: 0; align-self: flex-start;
-  }
-  .card.minicurso .card-ico  { background: #e8f5e9; }
-  .card.oficina .card-ico    { background: #e3f2fd; }
-  .card.palestra .card-ico   { background: #f3e5f5; }
-  .card.exposicao .card-ico  { background: #fff3e0; }
-  .card.encerramento .card-ico { background: #e8f5e9; }
+      /* HEADER */
+      .hdr {
+        background: linear-gradient(135deg, #1a5e20 0%, #1565c0 100%);
+        padding: 36px 48px 28px;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        flex-shrink: 0;
+      }
 
-  .card-body { flex: 1; min-width: 0; }
-  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
-  .card-type {
-    font-size: 25px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 1.5px;
-    padding: 4px 14px; border-radius: 20px;
-    display: inline-block; flex-shrink: 0;
-  }
-  .card.minicurso .card-type  { background: #e8f5e9; color: #2e7d32; }
-  .card.oficina .card-type    { background: #e3f2fd; color: #1565c0; }
-  .card.palestra .card-type   { background: #f3e5f5; color: #6a1b9a; }
-  .card.exposicao .card-type  { background: #fff3e0; color: #bf360c; }
-  .card.encerramento .card-type { background: #e8f5e9; color: #1a5e20; }
+      .hdr-logo {
+        background: white;
+        border-radius: 18px;
+        padding: 12px 22px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+      }
 
-  .time-badge {
-    display: flex; align-items: center; gap: 5px;
-    background: #fff8e1; color: #e65100;
-    font-size: 46px; font-weight: 900;
-    padding: 6px 16px; border-radius: 12px;
-    border: 2px solid #ffe082;
-    white-space: nowrap; flex-shrink: 0;
-  }
-  .card-title {
-    font-size: 38px; font-weight: 700; color: #111;
-    line-height: 1.3; margin-bottom: 10px;
-  }
-  .card-meta { display: flex; flex-wrap: wrap; gap: 10px; }
-  .meta { display: flex; align-items: center; gap: 6px; font-size: 17px; color: #444; }
-  .meta-dot {
-    width: 26px; height: 26px; border-radius: 7px;
-    background: #f0f0f0; display: flex; align-items: center;
-    justify-content: center; font-size: 15px; flex-shrink: 0;
-  }
+      .hdr-logo .ifms {
+        font-size: 54px;
+        font-weight: 900;
+        color: #1565c0;
+        line-height: 1;
+      }
 
-  /* PROGRESS */
-  .progress-bar { height: 6px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
-  .progress-fill { height: 100%; background: #FFC107; width: 0%; transition: width linear; }
+      .hdr-logo .yr {
+        font-size: 19px;
+        font-weight: 700;
+        color: #1a5e20;
+        line-height: 1.3;
+      }
 
-  /* FOOTER */
-  .footer {
-    background: linear-gradient(135deg, #1a5e20 0%, #1565c0 100%);
-    padding: 16px 48px;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-shrink: 0;
-  }
-  .footer-left { color: white; }
-  .footer-left strong { font-size: 22px; display: block; }
-  .footer-left span { font-size: 16px; opacity: 0.75; }
-  .footer-icons { display: flex; gap: 10px; }
-  .fi {
-    width: 44px; height: 44px; border-radius: 12px;
-    background: rgba(255,255,255,0.15);
-    display: flex; align-items: center; justify-content: center; font-size: 22px;
-  }
-</style>
-</head>
-<body>
+      .hdr-text {
+        flex: 1;
+      }
 
-<!-- TELA 0: DIA 1 - PÁG 1 -->
-<div class="screen active" id="s0">
-  <div class="hdr">
-    <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
-    <div class="hdr-text">
-      <div class="hdr-top">Semana do Meio Ambiente</div>
-      <div class="hdr-main">Dia <span>1</span></div>
-      <div class="hdr-sub">📍 Coxim – MS · Segunda-feira</div>
-    </div>
-    <div class="day-block">
-      <div class="day-pill">01 junho</div>
-      <div class="page-ind">1 / 2</div>
-    </div>
-  </div>
-  <div class="icons-strip">
-    <div class="ibox" style="background:#1565c0">🐟</div>
-    <div class="ibox" style="background:#2e7d32">🌳</div>
-    <div class="ibox" style="background:#4caf50">🌧️</div>
-    <div class="ibox" style="background:#66bb6a">♻️</div>
-    <div class="ibox" style="background:#fdd835">💡</div>
-    <div class="ibox" style="background:#fb8c00">💧</div>
-    <div class="ibox" style="background:#e53935">⚡</div>
-  </div>
-  <div class="cards-area">
-    <div class="mat"><div class="turno-lbl">☀️ Matutino</div></div>
-    <div class="card oficina">
-      <div class="card-ico">🏢</div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-type">Oficina</span>
-          <div class="time-badge">08:00</div>
-        </div>
-        <div class="card-title">Sebrae – LAB.IC: Oficina de Ideias</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Hugo Siscar</div>
-          <div class="meta"><div class="meta-dot">📍</div>Biblioteca</div>
-          <div class="meta"><div class="meta-dot">🎯</div>40 vagas / Curso Técnico</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🐝</div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-type">Minicurso</span>
-          <div class="time-badge">10:10</div>
-        </div>
-        <div class="card-title">A vida invisível da polinização: abelhas e sua importância na produção de alimentos</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Ellen Rubia</div>
-          <div class="meta"><div class="meta-dot">📍</div>Sala de aula</div>
-          <div class="meta"><div class="meta-dot">🎯</div>Integralizado com a turma</div>
-        </div>
-      </div>
-    </div>
-    <div class="vesp"><div class="turno-lbl">🌤️ Vespertino</div></div>
-    <div class="card oficina">
-      <div class="card-ico">🏢</div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-type">Oficina</span>
-          <div class="time-badge">13:00</div>
-        </div>
-        <div class="card-title">Sebrae – LAB.IC: Oficina de Ideias</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Hugo Siscar</div>
-          <div class="meta"><div class="meta-dot">📍</div>Biblioteca</div>
-          <div class="meta"><div class="meta-dot">🎯</div>40 vagas / Curso Técnico</div>
-        </div>
-      </div>
-    </div>
-    <div class="card oficina">
-      <div class="card-ico">🌿</div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-type">Oficina</span>
-          <div class="time-badge">13:00</div>
-        </div>
-        <div class="card-title">A Construção de Ecobarreiras como tecnologia sustentável para a Educação Ambiental</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Maria Rita Mendonça Vieira (SED-MS)</div>
-          <div class="meta"><div class="meta-dot">📍</div>Sala de aula</div>
-          <div class="meta"><div class="meta-dot">🎯</div>20 vagas</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="p0"></div></div>
-  <div class="footer">
-    <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim – MS</span></div>
-    <div class="footer-icons"><div class="fi">🌱</div><div class="fi">♻️</div><div class="fi">💧</div></div>
-  </div>
-</div>
+      .hdr-top {
+        font-size: 38px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
 
-<!-- TELA 1: DIA 1 - PÁG 2 -->
-<div class="screen" id="s1">
-  <div class="hdr">
-    <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
-    <div class="hdr-text">
-      <div class="hdr-top">Semana do Meio Ambiente</div>
-      <div class="hdr-main">Dia <span>1</span></div>
-      <div class="hdr-sub">📍 Coxim – MS · Segunda-feira</div>
-    </div>
-    <div class="day-block">
-      <div class="day-pill">01 junho</div>
-      <div class="page-ind">2 / 2</div>
-    </div>
-  </div>
-  <div class="icons-strip">
-    <div class="ibox" style="background:#1565c0">🐟</div><div class="ibox" style="background:#2e7d32">🌳</div><div class="ibox" style="background:#4caf50">🌧️</div><div class="ibox" style="background:#66bb6a">♻️</div><div class="ibox" style="background:#fdd835">💡</div><div class="ibox" style="background:#fb8c00">💧</div><div class="ibox" style="background:#e53935">⚡</div>
-  </div>
-  <div class="cards-area">
-    <div class="vesp"><div class="turno-lbl">🌤️ Vespertino (cont.)</div></div>
-    <div class="card minicurso">
-      <div class="card-ico">🐝</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">16:00</div></div>
-        <div class="card-title">A vida invisível da polinização: abelhas e sua importância na produção de alimentos</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Ellen Rubia</div>
-          <div class="meta"><div class="meta-dot">📍</div>Sala de aula</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🫙</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">13:00</div></div>
-        <div class="card-title">Óleo de cozinha sob diferentes perspectivas</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>PIBID-Capes</div>
-          <div class="meta"><div class="meta-dot">📍</div>Lab</div>
-          <div class="meta"><div class="meta-dot">🎯</div>20 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">♻️</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">15:00</div></div>
-        <div class="card-title">Plásticos: implicações socioambientais</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>PIBID-Capes</div>
-          <div class="meta"><div class="meta-dot">📍</div>Lab</div>
-          <div class="meta"><div class="meta-dot">🎯</div>20 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="not"><div class="turno-lbl">🌙 Noturno</div></div>
-    <div class="card exposicao">
-      <div class="card-ico">🎓</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Exposição</span><div class="time-badge">19:00</div></div>
-        <div class="card-title">Solenidade de Certificação de Qualificação Profissional – Educação de Jovens e Adultos</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Wania / Coord. Núcleo Ed. Ambiental / PIBID</div>
-          <div class="meta"><div class="meta-dot">📍</div>Auditório</div>
-          <div class="meta"><div class="meta-dot">🎯</div>Aberto</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="p1"></div></div>
-  <div class="footer">
-    <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim – MS</span></div>
-    <div class="footer-icons"><div class="fi">🌱</div><div class="fi">♻️</div><div class="fi">💧</div></div>
-  </div>
-</div>
+      .hdr-main {
+        font-size: 52px;
+        font-weight: 900;
+        color: white;
+        line-height: 1.05;
+      }
 
-<!-- TELA 2: DIA 2 - PÁG 1 -->
-<div class="screen" id="s2">
-  <div class="hdr">
-    <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
-    <div class="hdr-text">
-      <div class="hdr-top">Semana do Meio Ambiente</div>
-      <div class="hdr-main">Dia <span>2</span></div>
-      <div class="hdr-sub">📍 Coxim – MS · Terça-feira</div>
-    </div>
-    <div class="day-block">
-      <div class="day-pill">02 junho</div>
-      <div class="page-ind">1 / 3</div>
-    </div>
-  </div>
-  <div class="icons-strip">
-    <div class="ibox" style="background:#1565c0">🐟</div><div class="ibox" style="background:#2e7d32">🌳</div><div class="ibox" style="background:#4caf50">🌧️</div><div class="ibox" style="background:#66bb6a">♻️</div><div class="ibox" style="background:#fdd835">💡</div><div class="ibox" style="background:#fb8c00">💧</div><div class="ibox" style="background:#e53935">⚡</div>
-  </div>
-  <div class="cards-area">
-    <div class="mat"><div class="turno-lbl">☀️ Matutino</div></div>
-    <div class="card minicurso">
-      <div class="card-ico">💰</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">08:00</div></div>
-        <div class="card-title">Educação Financeira – Preparatório para a OLITEF</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Danilo, Ricardo Tavares, Dayane, Julya e Isabelly</div>
-          <div class="meta"><div class="meta-dot">📍</div>Sala de aula</div>
-          <div class="meta"><div class="meta-dot">🎯</div>30 vagas (Curso Téc. em Sist.)</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🌱</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">08:00</div></div>
-        <div class="card-title">Hortas Urbanas: Produção própria e sustentabilidade</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Jessica Aline Linné</div>
-          <div class="meta"><div class="meta-dot">📍</div>Laren</div>
-          <div class="meta"><div class="meta-dot">🎯</div>25 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🐠</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">08:00</div></div>
-        <div class="card-title">Aquaponia: integração do cultivo de vegetais e peixes</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Gabriel, Pedro e Lorrayne</div>
-          <div class="meta"><div class="meta-dot">📍</div>Laren</div>
-          <div class="meta"><div class="meta-dot">🎯</div>30 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🚁</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">09:00</div></div>
-        <div class="card-title">Uso de drone para análises da vegetação</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Everton</div>
-          <div class="meta"><div class="meta-dot">📍</div>Laren</div>
-          <div class="meta"><div class="meta-dot">🎯</div>30 vagas</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="p2"></div></div>
-  <div class="footer">
-    <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim – MS</span></div>
-    <div class="footer-icons"><div class="fi">🌱</div><div class="fi">♻️</div><div class="fi">💧</div></div>
-  </div>
-</div>
+      .hdr-main span {
+        color: #a5d6a7;
+      }
 
-<!-- TELA 3: DIA 2 - PÁG 2 -->
-<div class="screen" id="s3">
-  <div class="hdr">
-    <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
-    <div class="hdr-text">
-      <div class="hdr-top">Semana do Meio Ambiente</div>
-      <div class="hdr-main">Dia <span>2</span></div>
-      <div class="hdr-sub">📍 Coxim – MS · Terça-feira</div>
-    </div>
-    <div class="day-block">
-      <div class="day-pill">02 junho</div>
-      <div class="page-ind">2 / 3</div>
-    </div>
-  </div>
-  <div class="icons-strip">
-    <div class="ibox" style="background:#1565c0">🐟</div><div class="ibox" style="background:#2e7d32">🌳</div><div class="ibox" style="background:#4caf50">🌧️</div><div class="ibox" style="background:#66bb6a">♻️</div><div class="ibox" style="background:#fdd835">💡</div><div class="ibox" style="background:#fb8c00">💧</div><div class="ibox" style="background:#e53935">⚡</div>
-  </div>
-  <div class="cards-area">
-    <div class="vesp"><div class="turno-lbl">🌤️ Vespertino</div></div>
-    <div class="card minicurso">
-      <div class="card-ico">💰</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">14:00</div></div>
-        <div class="card-title">Educação Financeira – Preparatório para a OLITEF</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Danilo, Ricardo Tavares, Dayane, Julya e Isabelly</div>
-          <div class="meta"><div class="meta-dot">📍</div>Sala de aula · 30 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card oficina">
-      <div class="card-ico">🥋</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Oficina</span><div class="time-badge">14:00</div></div>
-        <div class="card-title">Ecossistema do Tatame – Jiu-Jitsu e a Preservação Ambiental</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Anderson (UFMS)</div>
-          <div class="meta"><div class="meta-dot">📍</div>Quadra de esporte · 30 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card palestra">
-      <div class="card-ico">🌾</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Palestra</span><div class="time-badge">13:00</div></div>
-        <div class="card-title">Os impactos causados por agrotóxicos para animais e vegetação</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Natalino Sousa</div>
-          <div class="meta"><div class="meta-dot">📍</div>Sala de aula · Turma Agropecuária</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🌿</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">14:00</div></div>
-        <div class="card-title">Da Planta ao Produto: Estudo de uma PANC de Coxim-MS</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Muryel, Laís, Claudia</div>
-          <div class="meta"><div class="meta-dot">📍</div>Lab · 20 vagas</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="p3"></div></div>
-  <div class="footer">
-    <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim – MS</span></div>
-    <div class="footer-icons"><div class="fi">🌱</div><div class="fi">♻️</div><div class="fi">💧</div></div>
-  </div>
-</div>
+      .hdr-sub {
+        font-size: 22px;
+        color: rgba(255, 255, 255, 0.75);
+        margin-top: 6px;
+      }
 
-<!-- TELA 4: DIA 2 - PÁG 3 -->
-<div class="screen" id="s4">
-  <div class="hdr">
-    <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
-    <div class="hdr-text">
-      <div class="hdr-top">Semana do Meio Ambiente</div>
-      <div class="hdr-main">Dia <span>2</span></div>
-      <div class="hdr-sub">📍 Coxim – MS · Terça-feira</div>
-    </div>
-    <div class="day-block">
-      <div class="day-pill">02 junho</div>
-      <div class="page-ind">3 / 3</div>
-    </div>
-  </div>
-  <div class="icons-strip">
-    <div class="ibox" style="background:#1565c0">🐟</div><div class="ibox" style="background:#2e7d32">🌳</div><div class="ibox" style="background:#4caf50">🌧️</div><div class="ibox" style="background:#66bb6a">♻️</div><div class="ibox" style="background:#fdd835">💡</div><div class="ibox" style="background:#fb8c00">💧</div><div class="ibox" style="background:#e53935">⚡</div>
-  </div>
-  <div class="cards-area">
-    <div class="vesp"><div class="turno-lbl">🌤️ Vespertino (cont.)</div></div>
-    <div class="card minicurso">
-      <div class="card-ico">🌱</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">14:00</div></div>
-        <div class="card-title">Hortas Urbanas: Produção própria e sustentabilidade</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Jessica Aline Linné</div>
-          <div class="meta"><div class="meta-dot">📍</div>Laren · 25 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card palestra">
-      <div class="card-ico">🧠</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Palestra</span><div class="time-badge">14:00</div></div>
-        <div class="card-title">Os impactos psicossociais perante tragédias climáticas</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Prof. Ana Gabriela (UEMS)</div>
-          <div class="meta"><div class="meta-dot">📍</div>Auditório · Aberto</div>
-        </div>
-      </div>
-    </div>
-    <div class="not"><div class="turno-lbl">🌙 Noturno</div></div>
-    <div class="card palestra">
-      <div class="card-ico">💧</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Palestra</span><div class="time-badge">19:00</div></div>
-        <div class="card-title">Importância da conservação ambiental para os recursos hídricos</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Natalino Sousa</div>
-          <div class="meta"><div class="meta-dot">📍</div>Sala de aula · Eng. de Pesca</div>
-        </div>
-      </div>
-    </div>
-    <div class="card palestra">
-      <div class="card-ico">🌍</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Palestra</span><div class="time-badge">19:30</div></div>
-        <div class="card-title">ICMS Ecológico na gestão ambiental e desenvolvimento de Alcinópolis</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Edilson de Oliveira Gomes</div>
-          <div class="meta"><div class="meta-dot">📍</div>Auditório · Aberto</div>
-        </div>
-      </div>
-    </div>
-    <div class="card oficina">
-      <div class="card-ico">❓</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Oficina</span><div class="time-badge">19:00</div></div>
-        <div class="card-title">Desafio SMA – Perguntas e respostas sobre Meio Ambiente</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Profs Proeja</div>
-          <div class="meta"><div class="meta-dot">📍</div>Pátio · 40 vagas (Lab Info) + 7 classificados</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="p4"></div></div>
-  <div class="footer">
-    <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim – MS</span></div>
-    <div class="footer-icons"><div class="fi">🌱</div><div class="fi">♻️</div><div class="fi">💧</div></div>
-  </div>
-</div>
+      /* DAY + PAGE */
+      .day-block {
+        text-align: right;
+        flex-shrink: 0;
+      }
 
-<!-- TELA 5: DIA 3 - PÁG 1 -->
-<div class="screen" id="s5">
-  <div class="hdr">
-    <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
-    <div class="hdr-text">
-      <div class="hdr-top">Semana do Meio Ambiente</div>
-      <div class="hdr-main">Dia <span>3</span></div>
-      <div class="hdr-sub">📍 Coxim – MS · Quarta-feira</div>
-    </div>
-    <div class="day-block">
-      <div class="day-pill">03 junho</div>
-      <div class="page-ind">1 / 3</div>
-    </div>
-  </div>
-  <div class="icons-strip">
-    <div class="ibox" style="background:#1565c0">🐟</div><div class="ibox" style="background:#2e7d32">🌳</div><div class="ibox" style="background:#4caf50">🌧️</div><div class="ibox" style="background:#66bb6a">♻️</div><div class="ibox" style="background:#fdd835">💡</div><div class="ibox" style="background:#fb8c00">💧</div><div class="ibox" style="background:#e53935">⚡</div>
-  </div>
-  <div class="cards-area">
-    <div class="mat"><div class="turno-lbl">☀️ Matutino</div></div>
-    <div class="card oficina">
-      <div class="card-ico">🌲</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Oficina</span><div class="time-badge">07:00</div></div>
-        <div class="card-title">Trilha ecológica em Coxim-MS</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Wania</div>
-          <div class="meta"><div class="meta-dot">📍</div>Saída do IFMS · 50 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🐟</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">08:00</div></div>
-        <div class="card-title">Produção sustentável de peixes em tanques elevados de geomembrana: manejo de qualidade de água e alimentação</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Natalino</div>
-          <div class="meta"><div class="meta-dot">📍</div>Laren · 20 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="vesp"><div class="turno-lbl">🌤️ Vespertino</div></div>
-    <div class="card oficina">
-      <div class="card-ico">🤖</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Oficina</span><div class="time-badge">13:00</div></div>
-        <div class="card-title">Exposição de protótipos robóticos como tecnologias sustentáveis para o futuro</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Angelino</div>
-          <div class="meta"><div class="meta-dot">📍</div>Pátio · Equipe de Robótica</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🚁</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">13:00</div></div>
-        <div class="card-title">Uso de drone para análises da vegetação</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Everton</div>
-          <div class="meta"><div class="meta-dot">📍</div>Laren · 30 vagas</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="p5"></div></div>
-  <div class="footer">
-    <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim – MS</span></div>
-    <div class="footer-icons"><div class="fi">🌱</div><div class="fi">♻️</div><div class="fi">💧</div></div>
-  </div>
-</div>
+      .day-pill {
+        background: #FFC107;
+        color: #1a1a1a;
+        font-size: 50px;
+        font-weight: 800;
+        padding: 8px 24px;
+        border-radius: 40px;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
 
-<!-- TELA 6: DIA 3 - PÁG 2 -->
-<div class="screen" id="s6">
-  <div class="hdr">
-    <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
-    <div class="hdr-text">
-      <div class="hdr-top">Semana do Meio Ambiente</div>
-      <div class="hdr-main">Dia <span>3</span></div>
-      <div class="hdr-sub">📍 Coxim – MS · Quarta-feira</div>
-    </div>
-    <div class="day-block">
-      <div class="day-pill">03 junho</div>
-      <div class="page-ind">2 / 3</div>
-    </div>
-  </div>
-  <div class="icons-strip">
-    <div class="ibox" style="background:#1565c0">🐟</div><div class="ibox" style="background:#2e7d32">🌳</div><div class="ibox" style="background:#4caf50">🌧️</div><div class="ibox" style="background:#66bb6a">♻️</div><div class="ibox" style="background:#fdd835">💡</div><div class="ibox" style="background:#fb8c00">💧</div><div class="ibox" style="background:#e53935">⚡</div>
-  </div>
-  <div class="cards-area">
-    <div class="vesp"><div class="turno-lbl">🌤️ Vespertino (cont.)</div></div>
-    <div class="card minicurso">
-      <div class="card-ico">🧪</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">13:00</div></div>
-        <div class="card-title">A química do lixo: reflexões sobre os materiais descartados no cotidiano</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>PIBID-Capes</div>
-          <div class="meta"><div class="meta-dot">📍</div>Lab · 20 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">💧</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">15:00</div></div>
-        <div class="card-title">Miniestação para tratamento de água: reflexões sob a perspectiva da ciência química</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>PIBID-Capes</div>
-          <div class="meta"><div class="meta-dot">📍</div>Lab · 20 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card oficina">
-      <div class="card-ico">🥁</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Oficina</span><div class="time-badge">15:00</div></div>
-        <div class="card-title">Capoeira – Dança e Ambiente</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Danilo</div>
-          <div class="meta"><div class="meta-dot">📍</div>Quadra · Aberto</div>
-        </div>
-      </div>
-    </div>
-    <div class="card oficina">
-      <div class="card-ico">🍹</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Oficina</span><div class="time-badge">14:00</div></div>
-        <div class="card-title">Coquetelaria Molecular Eco-Friendly: Esferificação Aplicada ao Desperdício Zero</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Éder de Mello Freitas</div>
-          <div class="meta"><div class="meta-dot">📍</div>Lab 93 · 15 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🐟</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">14:00</div></div>
-        <div class="card-title">Da Água à Mesa: Produção Sustentável de Quibe de Peixe</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Ana Paula</div>
-          <div class="meta"><div class="meta-dot">📍</div>Lab de Carne · 15 vagas</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="p6"></div></div>
-  <div class="footer">
-    <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim – MS</span></div>
-    <div class="footer-icons"><div class="fi">🌱</div><div class="fi">♻️</div><div class="fi">💧</div></div>
-  </div>
-</div>
+      .page-ind {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 27px;
+        font-weight: 600;
+      }
 
-<!-- TELA 7: DIA 3 - PÁG 3 -->
-<div class="screen" id="s7">
-  <div class="hdr">
-    <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
-    <div class="hdr-text">
-      <div class="hdr-top">Semana do Meio Ambiente</div>
-      <div class="hdr-main">Dia <span>3</span></div>
-      <div class="hdr-sub">📍 Coxim – MS · Quarta-feira</div>
-    </div>
-    <div class="day-block">
-      <div class="day-pill">03 junho</div>
-      <div class="page-ind">3 / 3</div>
-    </div>
-  </div>
-  <div class="icons-strip">
-    <div class="ibox" style="background:#1565c0">🐟</div><div class="ibox" style="background:#2e7d32">🌳</div><div class="ibox" style="background:#4caf50">🌧️</div><div class="ibox" style="background:#66bb6a">♻️</div><div class="ibox" style="background:#fdd835">💡</div><div class="ibox" style="background:#fb8c00">💧</div><div class="ibox" style="background:#e53935">⚡</div>
-  </div>
-  <div class="cards-area">
-    <div class="not"><div class="turno-lbl">🌙 Noturno</div></div>
-    <div class="card exposicao">
-      <div class="card-ico">🗺️</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Exposição</span><div class="time-badge">19:00</div></div>
-        <div class="card-title">Exposição dos resultados do projeto trilhas interpretativas</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Wania / Coord. Núcleo Ed. Ambiental / PIBID</div>
-          <div class="meta"><div class="meta-dot">📍</div>Hall do IFMS · Aberto</div>
-        </div>
-      </div>
-    </div>
-    <div class="card palestra">
-      <div class="card-ico">📱</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Palestra</span><div class="time-badge">20:00</div></div>
-        <div class="card-title">Aplicação de aplicativos para o monitoramento e conservação ambiental</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Danilo (UFMS)</div>
-          <div class="meta"><div class="meta-dot">📍</div>Auditório · Aberto</div>
-        </div>
-      </div>
-    </div>
-    <div class="card minicurso">
-      <div class="card-ico">🍹</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Minicurso</span><div class="time-badge">19:00</div></div>
-        <div class="card-title">Coquetelaria Molecular Eco-Friendly: Esferificação Aplicada ao Desperdício Zero</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Éder de Mello Freitas</div>
-          <div class="meta"><div class="meta-dot">📍</div>Lab 93 · 15 vagas</div>
-        </div>
-      </div>
-    </div>
-    <div class="card palestra">
-      <div class="card-ico">🌾</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Palestra</span><div class="time-badge">19:00</div></div>
-        <div class="card-title">Biofertilizante: estratégia para a piscicultura sustentável e produção de hortaliças</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Estudantes (Laren)</div>
-          <div class="meta"><div class="meta-dot">📍</div>Auditório · Aberto</div>
-        </div>
-      </div>
-    </div>
-    <div class="card encerramento">
-      <div class="card-ico">🎉</div>
-      <div class="card-body">
-        <div class="card-top"><span class="card-type">Encerramento</span><div class="time-badge">21:00</div></div>
-        <div class="card-title">Encerramento oficial da Semana do Meio Ambiente 2026</div>
-        <div class="card-meta">
-          <div class="meta"><div class="meta-dot">👤</div>Equipe SMA</div>
-          <div class="meta"><div class="meta-dot">📍</div>Auditório · Todos</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="p7"></div></div>
-  <div class="footer">
-    <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim – MS</span></div>
-    <div class="footer-icons"><div class="fi">🌱</div><div class="fi">♻️</div><div class="fi">💧</div></div>
-  </div>
-</div>
+      /* ICON STRIP */
+      .icons-strip {
+        background: linear-gradient(135deg, #1a5e20 0%, #1565c0 100%);
+        padding: 0 78px 20px;
+        display: flex;
+        gap: 12px;
+        flex-shrink: 0;
+      }
 
-<script>
-  var total = 8;
-  var current = 0;
-  var duration = 12000;
-  function showScreen(idx) {
-    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
-    document.querySelectorAll('.progress-fill').forEach(function(b){ b.style.transition='none'; b.style.width='0%'; });
-    document.getElementById('s'+idx).classList.add('active');
-    setTimeout(function(){
-      var bar = document.getElementById('p'+idx);
-      bar.style.transition = 'width '+(duration/1000)+'s linear';
-      bar.style.width = '100%';
-    }, 60);
-  }
-  showScreen(0);
-  setInterval(function(){ current=(current+1)%total; showScreen(current); }, duration);
-</script>
-</body>
-</html>
-HTMLEOF
+      .ibox {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+      }
+
+      /* TURNO LABEL */
+      .turno-lbl {
+        font-size: 52px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        padding: 22px 48px 10px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+
+      .turno-lbl::before {
+        content: '';
+        display: block;
+        width: 7px;
+        height: 26px;
+        border-radius: 4px;
+      }
+
+      .mat .turno-lbl {
+        color: #bf360c;
+      }
+
+      .mat .turno-lbl::before {
+        background: #bf360c;
+      }
+
+      .vesp .turno-lbl {
+        color: #1565c0;
+      }
+
+      .vesp .turno-lbl::before {
+        background: #1565c0;
+      }
+
+      .not .turno-lbl {
+        color: #4a148c;
+      }
+
+      .not .turno-lbl::before {
+        background: #4a148c;
+      }
+
+      .enc .turno-lbl {
+        color: #1a5e20;
+      }
+
+      .enc .turno-lbl::before {
+        background: #1a5e20;
+      }
+
+      /* CARDS */
+      .cards-area {
+        flex: 1;
+        padding: 0 32px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        overflow: hidden;
+      }
+
+      .card {
+        background: white;
+        border-radius: 22px;
+        padding: 22px 26px;
+        display: flex;
+        gap: 18px;
+        border: 1px solid rgba(0, 0, 0, 0.07);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 14px;
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 8px;
+      }
+
+      .card.minicurso::before {
+        background: #388e3c;
+      }
+
+      .card.oficina::before {
+        background: #1976d2;
+      }
+
+      .card.palestra::before {
+        background: #7b1fa2;
+      }
+
+      .card.exposicao::before {
+        background: #e65100;
+      }
+
+      .card.encerramento::before {
+        background: #1a5e20;
+      }
+
+      .card-ico {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 38px;
+        flex-shrink: 0;
+        align-self: flex-start;
+      }
+
+      .card.minicurso .card-ico {
+        background: #e8f5e9;
+      }
+
+      .card.oficina .card-ico {
+        background: #e3f2fd;
+      }
+
+      .card.palestra .card-ico {
+        background: #f3e5f5;
+      }
+
+      .card.exposicao .card-ico {
+        background: #fff3e0;
+      }
+
+      .card.encerramento .card-ico {
+        background: #e8f5e9;
+      }
+
+      .card-body {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .card-type {
+        font-size: 25px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        padding: 4px 14px;
+        border-radius: 20px;
+        display: inline-block;
+        flex-shrink: 0;
+      }
+
+      .card.minicurso .card-type {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .card.oficina .card-type {
+        background: #e3f2fd;
+        color: #1565c0;
+      }
+
+      .card.palestra .card-type {
+        background: #f3e5f5;
+        color: #6a1b9a;
+      }
+
+      .card.exposicao .card-type {
+        background: #fff3e0;
+        color: #bf360c;
+      }
+
+      .card.encerramento .card-type {
+        background: #e8f5e9;
+        color: #1a5e20;
+      }
+
+      .time-badge {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background: #fff8e1;
+        color: #e65100;
+        font-size: 46px;
+        font-weight: 900;
+        padding: 6px 16px;
+        border-radius: 12px;
+        border: 2px solid #ffe082;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .card-title {
+        font-size: 38px;
+        font-weight: 700;
+        color: #111;
+        line-height: 1.3;
+        margin-bottom: 10px;
+      }
+
+      .card-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 27px;
+        color: #444;
+      }
+
+      .meta-dot {
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        background: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        flex-shrink: 0;
+      }
+
+      /* PROGRESS */
+      .progress-bar {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.2);
+        flex-shrink: 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: #FFC107;
+        width: 0%;
+        transition: width linear;
+      }
+
+      /* FOOTER */
+      .footer {
+        background: linear-gradient(135deg, #1a5e20 0%, #1565c0 100%);
+        padding: 16px 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+      }
+
+      .footer-left {
+        color: white;
+      }
+
+      .footer-left strong {
+        font-size: 22px;
+        display: block;
+      }
+
+      .footer-left span {
+        font-size: 16px;
+        opacity: 0.75;
+      }
+
+      .footer-icons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .fi {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- TELA 0: DIA 1 - PÁG 1 -->
+    <div class="screen active" id="s0">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>1</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Segunda-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">01 junho</div>
+          <div class="page-ind">1 / 2</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="mat">
+          <div class="turno-lbl">☀️ Matutino</div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">🏢</div>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="card-type">Oficina</span>
+              <div class="time-badge">08:00</div>
+            </div>
+            <div class="card-title">Sebrae – LAB.IC: Oficina de Ideias</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Hugo Siscar
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Biblioteca
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>40 vagas / Curso Técnico
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🐝</div>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="card-type">Minicurso</span>
+              <div class="time-badge">10:10</div>
+            </div>
+            <div class="card-title">A vida invisível da polinização: abelhas e sua importância na produção de alimentos
+            </div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Ellen Rubia
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala de aula
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>Integralizado com a turma
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vesp">
+          <div class="turno-lbl">🌤️ Vespertino</div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">🏢</div>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="card-type">Oficina</span>
+              <div class="time-badge">13:00</div>
+            </div>
+            <div class="card-title">Sebrae – LAB.IC: Oficina de Ideias</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Hugo Siscar
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Biblioteca
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>40 vagas / Curso Técnico
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">🌿</div>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="card-type">Oficina</span>
+              <div class="time-badge">13:00</div>
+            </div>
+            <div class="card-title">A Construção de Ecobarreiras como tecnologia sustentável para a Educação Ambiental
+            </div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Maria Rita Mendonça Vieira (SED-MS)
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala de aula
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>20 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p0"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA 1: DIA 1 - PÁG 2 -->
+    <div class="screen" id="s1">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>1</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Segunda-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">01 junho</div>
+          <div class="page-ind">2 / 2</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+
+      <div class="cards-area">
+        <div class="vesp">
+          <div class="turno-lbl">🌤️ Vespertino (cont.)</div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🫙</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">13:00</div>
+            </div>
+            <div class="card-title">Óleo de cozinha sob diferentes perspectivas</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>PIBID-Capes
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Lab
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>20 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">♻️</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">15:00</div>
+            </div>
+            <div class="card-title">Plásticos: implicações socioambientais</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>PIBID-Capes
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Lab
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>20 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🐝</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">16:00</div>
+            </div>
+            <div class="card-title">A vida invisível da polinização: abelhas e sua importância na produção de alimentos
+            </div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Ellen Rubia
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala de aula
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="not">
+          <div class="turno-lbl">🌙 Noturno</div>
+        </div>
+        <div class="card exposicao">
+          <div class="card-ico">🎓</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Exposição</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Solenidade de Certificação de Qualificação Profissional – Educação de Jovens e
+              Adultos</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Wania / Coord. Núcleo Ed. Ambiental / PIBID
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Auditório
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p1"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA 2: DIA 2 - PÁG 1 -->
+    <div class="screen" id="s2">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>2</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Terça-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">02 junho</div>
+          <div class="page-ind">1 / 4</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="mat">
+          <div class="turno-lbl">☀️ Matutino</div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">💰</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">08:00</div>
+            </div>
+            <div class="card-title">Educação Financeira – Preparatório para a OLITEF</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Danilo, Ricardo Tavares, Dayane, Julya e Isabelly
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala de aula
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>30 vagas (Curso Téc. em Sist.)
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🌱</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">08:00</div>
+            </div>
+            <div class="card-title">Hortas Urbanas: Produção própria e sustentabilidade</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Jessica Aline Linné
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Laren
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>25 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🐠</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">08:00</div>
+            </div>
+            <div class="card-title">Aquaponia: integração do cultivo de vegetais e peixes</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Gabriel, Pedro e Lorrayne
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Laren
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>30 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🚁</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">09:00</div>
+            </div>
+            <div class="card-title">Uso de drone para análises da vegetação</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Everton
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Laren
+              </div>
+              <div class="meta">
+                <div class="meta-dot">🎯</div>30 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p2"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA 3: DIA 2 - PÁG 2 -->
+    <div class="screen" id="s3">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>2</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Terça-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">02 junho</div>
+          <div class="page-ind">2 / 4</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="vesp">
+          <div class="turno-lbl">🌤️ Vespertino</div>
+        </div>
+        <div class="card palestra">
+          <div class="card-ico">🌾</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Palestra</span>
+              <div class="time-badge">13:00</div>
+            </div>
+            <div class="card-title">Os impactos causados por agrotóxicos para animais e vegetação</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Natalino Sousa
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala de aula · Turma Agropecuária
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">💰</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">14:00</div>
+            </div>
+            <div class="card-title">Educação Financeira – Preparatório para a OLITEF</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Danilo, Ricardo Tavares, Dayane, Julya e Isabelly
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala de aula · 30 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">🥋</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Oficina</span>
+              <div class="time-badge">14:00</div>
+            </div>
+            <div class="card-title">Ecossistema do Tatame – Jiu-Jitsu e a Preservação Ambiental</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Anderson (UFMS)
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Quadra de esporte · 30 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🌿</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">14:00</div>
+            </div>
+            <div class="card-title">Da Planta ao Produto: Estudo de uma PANC de Coxim-MS</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Muryel, Laís, Claudia
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Lab · 20 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p3"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA 4: DIA 2 - PÁG 3 -->
+    <div class="screen" id="s4">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>2</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Terça-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">02 junho</div>
+          <div class="page-ind">3 / 4</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="vesp">
+          <div class="turno-lbl">🌤️ Vespertino (cont.)</div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🌱</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">14:00</div>
+            </div>
+            <div class="card-title">Hortas Urbanas: Produção própria e sustentabilidade</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Jessica Aline Linné
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Laren · 25 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card palestra">
+          <div class="card-ico">🧠</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Palestra</span>
+              <div class="time-badge">14:00</div>
+            </div>
+            <div class="card-title">Os impactos psicossociais perante tragédias climáticas</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Prof. Ana Gabriela (UEMS)
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Auditório · Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="not">
+          <div class="turno-lbl">🌙 Noturno</div>
+        </div>
+        <div class="card palestra">
+          <div class="card-ico">💧</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Palestra</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Importância da conservação ambiental para os recursos hídricos</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Natalino Sousa
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala de aula · Eng. de Pesca
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">❓</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Oficina</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Desafio SMA – Perguntas e respostas sobre Meio Ambiente</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Profs Proeja
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Pátio · 40 vagas (Lab Info) + 7 classificados
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p4"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TELA 4: DIA 2 - PÁG 4 -->
+    <div class="screen" id="s5">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>2</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Terça-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">02 junho</div>
+          <div class="page-ind">4 / 4</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="not">
+          <div class="turno-lbl">🌙 Noturno</div>
+        </div>
+        <div class="card palestra">
+          <div class="card-ico">🌍</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Palestra</span>
+              <div class="time-badge">19:30</div>
+            </div>
+            <div class="card-title">ICMS Ecológico na gestão ambiental e desenvolvimento de Alcinópolis</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Edilson de Oliveira Gomes
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Auditório · Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card palestra">
+          <div class="card-ico">📱</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Palestra</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Você está seguro? Golpes virtuais: como se proteger!</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Antônio Barbosa Dos Reis / Rhafaely Ananda Costa Dos Reis / Prof. Hugo
+                Siscar
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala de aula
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p4"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA 5: DIA 3 - PÁG 1 -->
+    <div class="screen" id="s6">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>3</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Quarta-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">03 junho</div>
+          <div class="page-ind">1 / 4</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="mat">
+          <div class="turno-lbl">☀️ Matutino</div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">🌲</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Oficina</span>
+              <div class="time-badge">07:00</div>
+            </div>
+            <div class="card-title">Trilha ecológica em Coxim-MS</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Wania
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Saída do IFMS · 50 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🐟</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">08:00</div>
+            </div>
+            <div class="card-title">Produção sustentável de peixes em tanques elevados de geomembrana: manejo de
+              qualidade de água e alimentação</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Natalino
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Laren · 20 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vesp">
+          <div class="turno-lbl">🌤️ Vespertino</div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">🤖</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Oficina</span>
+              <div class="time-badge">13:00</div>
+            </div>
+            <div class="card-title">Exposição de protótipos robóticos como tecnologias sustentáveis para o futuro</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Angelino
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Pátio · Equipe de Robótica
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🚁</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">13:00</div>
+            </div>
+            <div class="card-title">Uso de drone para análises da vegetação</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Everton
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Laren · 30 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p5"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA 6: DIA 3 - PÁG 2 -->
+    <div class="screen" id="s7">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>3</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Quarta-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">03 junho</div>
+          <div class="page-ind">2 / 4</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="vesp">
+          <div class="turno-lbl">🌤️ Vespertino (cont.)</div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🧪</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">13:00</div>
+            </div>
+            <div class="card-title">A química do lixo: reflexões sobre os materiais descartados no cotidiano</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>PIBID-Capes
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Lab · 20 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">🍹</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Oficina</span>
+              <div class="time-badge">14:00</div>
+            </div>
+            <div class="card-title">Coquetelaria Molecular Eco-Friendly: Esferificação Aplicada ao Desperdício Zero
+            </div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Éder de Mello Freitas
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Lab 93 · 15 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🐟</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">14:00</div>
+            </div>
+            <div class="card-title">Da Água à Mesa: Produção Sustentável de Quibe de Peixe</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Ana Paula
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Lab de Carne · 15 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">🏭</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">14:00</div>
+            </div>
+            <div class="card-title">Poluição em foco: do papel ao orgânico</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Jader
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p6"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+    <!-- TELA 6: DIA 3 - PÁG 2 -->
+    <div class="screen" id="s8">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>3</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Quarta-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">03 junho</div>
+          <div class="page-ind">3 / 4</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="vesp">
+          <div class="turno-lbl">🌤️ Vespertino (cont.)</div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">💧</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">15:00</div>
+            </div>
+            <div class="card-title">Miniestação para tratamento de água: reflexões sob a perspectiva da ciência química
+            </div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>PIBID-Capes
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Lab · 20 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card oficina">
+          <div class="card-ico">🥁</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Oficina</span>
+              <div class="time-badge">15:00</div>
+            </div>
+            <div class="card-title">Capoeira – Dança e Ambiente</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Danilo
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Quadra · Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="not">
+          <div class="turno-lbl">🌙 Noturno</div>
+        </div>
+        <div class="card exposicao">
+          <div class="card-ico">🗺️</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Exposição</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Exposição dos resultados do projeto trilhas interpretativas</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Wania / Coord. Núcleo Ed. Ambiental / PIBID
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Hall do IFMS · Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🖥️</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Criação de HomeLab com Linux</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>"JONATA / LEGIANO / LUCAS GABRIEL / LUIZ EDUARDO / MAICON
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Sala 85
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p6"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+    <!-- TELA 7: DIA 3 - PÁG 3 -->
+    <div class="screen" id="s9">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>3</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Quarta-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">03 junho</div>
+          <div class="page-ind">4 / 4</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="not">
+          <div class="turno-lbl">🌙 Noturno</div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🍹</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Coquetelaria Molecular Eco-Friendly: Esferificação Aplicada ao Desperdício Zero
+            </div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Éder de Mello Freitas
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Lab 93 · 15 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card palestra">
+          <div class="card-ico">🌾</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Palestra</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Biofertilizante: estratégia para a piscicultura sustentável e produção de hortaliças
+            </div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Estudantes (Laren)
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Auditório · Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card palestra">
+          <div class="card-ico">📱</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Palestra</span>
+              <div class="time-badge">20:00</div>
+            </div>
+            <div class="card-title">Aplicação de aplicativos para o monitoramento e conservação ambiental</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Danilo (UFMS)
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Auditório · Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card encerramento">
+          <div class="card-ico">🎉</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Encerramento</span>
+              <div class="time-badge">21:00</div>
+            </div>
+            <div class="card-title">Encerramento oficial da Semana do Meio Ambiente 2026</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Equipe SMA
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Auditório · Todos
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p7"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA 7: DIA 3 - PÁG 4 -->
+    <div class="screen" id="s10">
+      <div class="hdr">
+        <div class="hdr-logo"><span class="ifms">IFMS</span><span class="yr">2026</span></div>
+        <div class="hdr-text">
+          <div class="hdr-top">Semana do Meio Ambiente</div>
+          <div class="hdr-main">Dia <span>3</span></div>
+          <div class="hdr-sub">📍 Coxim – MS · Quarta-feira</div>
+        </div>
+        <div class="day-block">
+          <div class="day-pill">03 junho</div>
+          <div class="page-ind">5 / 5</div>
+        </div>
+      </div>
+      <div class="icons-strip">
+        <div class="ibox" style="background:#1565c0">🐟</div>
+        <div class="ibox" style="background:#2e7d32">🌳</div>
+        <div class="ibox" style="background:#4caf50">🌧️</div>
+        <div class="ibox" style="background:#66bb6a">♻️</div>
+        <div class="ibox" style="background:#fdd835">💡</div>
+        <div class="ibox" style="background:#fb8c00">💧</div>
+        <div class="ibox" style="background:#e53935">⚡</div>
+      </div>
+      <div class="cards-area">
+        <div class="not">
+          <div class="turno-lbl">🌙 Noturno</div>
+        </div>
+        <div class="card exposicao">
+          <div class="card-ico">🗺️</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Exposição</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Exposição dos resultados do projeto trilhas interpretativas</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Wania / Coord. Núcleo Ed. Ambiental / PIBID
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Hall do IFMS · Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card palestra">
+          <div class="card-ico">📱</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Palestra</span>
+              <div class="time-badge">20:00</div>
+            </div>
+            <div class="card-title">Aplicação de aplicativos para o monitoramento e conservação ambiental</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Danilo (UFMS)
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Auditório · Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card minicurso">
+          <div class="card-ico">🍹</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Minicurso</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Coquetelaria Molecular Eco-Friendly: Esferificação Aplicada ao Desperdício Zero
+            </div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Éder de Mello Freitas
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Lab 93 · 15 vagas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card palestra">
+          <div class="card-ico">🌾</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Palestra</span>
+              <div class="time-badge">19:00</div>
+            </div>
+            <div class="card-title">Biofertilizante: estratégia para a piscicultura sustentável e produção de hortaliças
+            </div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Estudantes (Laren)
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Auditório · Aberto
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card encerramento">
+          <div class="card-ico">🎉</div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-type">Encerramento</span>
+              <div class="time-badge">21:00</div>
+            </div>
+            <div class="card-title">Encerramento oficial da Semana do Meio Ambiente 2026</div>
+            <div class="card-meta">
+              <div class="meta">
+                <div class="meta-dot">👤</div>Equipe SMA
+              </div>
+              <div class="meta">
+                <div class="meta-dot">📍</div>Auditório · Todos
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="p7"></div>
+      </div>
+      <div class="footer">
+        <div class="footer-left"><strong>Semana do Meio Ambiente 2026</strong><span>01 a 03 de junho · IFMS Coxim –
+            MS</span></div>
+        <div class="footer-icons">
+          <div class="fi">🌱</div>
+          <div class="fi">♻️</div>
+          <div class="fi">💧</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var total = 10;
+      var current = 0;
+      var duration = 16000;
+      function showScreen(idx) {
+        document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+        document.querySelectorAll('.progress-fill').forEach(function (b) { b.style.transition = 'none'; b.style.width = '0%'; });
+        document.getElementById('s' + idx).classList.add('active');
+        setTimeout(function () {
+          var bar = document.getElementById('p' + idx);
+          bar.style.transition = 'width ' + (duration / 1000) + 's linear';
+          bar.style.width = '100%';
+        }, 60);
+      }
+      showScreen(0);
+      setInterval(function () { current = (current + 1) % total; showScreen(current); }, duration);
+    </script>
+  </body>
+
+  </html>
+  HTMLEOF
